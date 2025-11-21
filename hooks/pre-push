@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Pre-push hook to run build check before pushing
+#
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo "${YELLOW}Running build check before push...${NC}"
+
+# Run Maven build (compile and test)
+mvn clean compile test
+
+# Check exit status
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "${RED}❌ Build check failed!${NC}"
+    echo "${YELLOW}Please fix build errors before pushing.${NC}"
+    exit 1
+fi
+
+echo "${GREEN}✅ Build check passed!${NC}"
+exit 0
+

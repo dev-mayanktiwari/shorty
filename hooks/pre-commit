@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Pre-commit hook to check code formatting with Spotless
+#
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo "${YELLOW}Running Spotless formatting check...${NC}"
+
+# Run Spotless check
+mvn spotless:check
+
+# Check exit status
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "${RED}❌ Spotless check failed!${NC}"
+    echo "${YELLOW}Please run 'mvn spotless:apply' to fix formatting issues.${NC}"
+    exit 1
+fi
+
+echo "${GREEN}✅ Spotless check passed!${NC}"
+exit 0
+
