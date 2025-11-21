@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>redirect</artifactId>
+    <name>redirect-service</name>
+    <version>1.0</version>
+
     <parent>
         <groupId>tech.mayanktiwari</groupId>
         <artifactId>shorty</artifactId>
         <version>1.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
-
-    <artifactId>redirect</artifactId>
-    <version>1.0</version>
-
 
 </project>

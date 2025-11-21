@@ -2,25 +2,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Parent project coordinates -->
     <groupId>tech.mayanktiwari</groupId>
     <artifactId>shorty</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
     <name>shorty</name>
 
+    <!-- GLOBAL PROPERTIES -->
     <properties>
+        <!-- Java version -->
         <java.version>17</java.version>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
+
+        <!-- Dependency Versions -->
         <spring.boot.version>3.5.6</spring.boot.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.30</lombok.version>
+
+        <!-- Compiler configuration -->
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
+
+        <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Root directory reference -->
+        <formatter.config>${maven.multiModuleProjectDirectory}/eclipse-java-formatter.xml</formatter.config>
     </properties>
 
+    <!-- MODULES -->
     <modules>
         <module>libs/common</module>
         <module>services/auth</module>
@@ -30,8 +44,10 @@
         <module>gateway</module>
     </modules>
 
+    <!-- DEPENDENCY MANAGEMENT -->
     <dependencyManagement>
         <dependencies>
+            <!-- Import Spring Boot BOM -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -39,6 +55,8 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- MapStruct (version managed here for children) -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
@@ -47,14 +65,21 @@
         </dependencies>
     </dependencyManagement>
 
+
+    <!-- BUILD CONFIGURATION -->
     <build>
+        <!-- PLUGIN MANAGEMENT (children inherit versions) -->
         <pluginManagement>
             <plugins>
+
+                <!-- Compiler Plugin -->
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.10.1</version>
                     <configuration>
                         <release>${maven.compiler.release}</release>
+
+                        <!-- Lombok + MapStruct annotation processors -->
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.projectlombok</groupId>
@@ -67,24 +92,73 @@
                                 <version>${mapstruct.version}</version>
                             </path>
                         </annotationProcessorPaths>
+
                         <compilerArgs>
+                            <!-- Mapstruct integrates with Spring -->
                             <arg>-Amapstruct.defaultComponentModel=spring</arg>
                         </compilerArgs>
                     </configuration>
                 </plugin>
 
+                <!-- Spring Boot Plugin -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.version}</version>
                 </plugin>
 
+                <!-- Surefire Plugin (unit tests) -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.1.2</version>
                 </plugin>
+
+                <!-- Spotless Plugin -->
+                <plugin>
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>2.43.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
+
+        <!-- ACTUAL ACTIVE PLUGINS (apply to children) -->
+        <plugins>
+
+            <!-- SPOTLESS plugin (formatting for all modules) -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.43.0</version>
+
+                <executions>
+                    <!-- Fail build if formatting doesn't match -->
+                    <execution>
+                        <id>spotless-check</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+
+                    <!-- Apply formatting manually using mvn spotless:apply -->
+                </executions>
+
+                <configuration>
+                    <java>
+                        <eclipse>
+                            <file>${formatter.config}</file>
+                        </eclipse>
+                        <removeUnusedImports/>
+                        <importOrder>
+                            <order>java,javax,org,com</order>
+                        </importOrder>
+                    </java>
+                </configuration>
+            </plugin>
+
+        </plugins>
     </build>
+
 </project>
