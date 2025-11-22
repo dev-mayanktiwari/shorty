@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.experimental.FieldDefaults;
-import tech.mayanktiwari.auth.dto.response.RegisterRequest;
+import tech.mayanktiwari.auth.dto.request.RegisterRequest;
 import tech.mayanktiwari.auth.dto.response.UserResponseDto;
 import tech.mayanktiwari.auth.mapper.UserMapper;
 import tech.mayanktiwari.auth.models.Users;

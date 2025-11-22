@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-import tech.mayanktiwari.auth.dto.response.RegisterRequest;
+import tech.mayanktiwari.auth.dto.request.RegisterRequest;
 import tech.mayanktiwari.auth.dto.response.UserResponseDto;
 import tech.mayanktiwari.auth.service.AuthService;
 import tech.mayanktiwari.common.api.ApiResponse;

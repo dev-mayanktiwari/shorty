@@ -1,6 +1,6 @@
 package tech.mayanktiwari.auth.mapper;
 
-import tech.mayanktiwari.auth.dto.response.RegisterRequest;
+import tech.mayanktiwari.auth.dto.request.RegisterRequest;
 import tech.mayanktiwari.auth.dto.response.UserResponseDto;
 import tech.mayanktiwari.auth.models.Users;
 
