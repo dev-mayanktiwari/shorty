@@ -30,8 +30,10 @@
         <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Root directory reference -->
-        <formatter.config>${maven.multiModuleProjectDirectory}/eclipse-java-formatter.xml</formatter.config>
+        <!-- Root directory reference - defaults to current directory for root, overridden for child modules -->
+        <formatter.config>${basedir}/eclipse-java-formatter.xml</formatter.config>
+        <!-- For child modules, this will be set to parent directory -->
+        <formatter.root>${basedir}</formatter.root>
     </properties>
 
     <!-- MODULES -->
@@ -148,6 +150,7 @@
                 <configuration>
                     <java>
                         <eclipse>
+                            <!-- Root: use ${basedir}, Child modules: override formatter.config property to ${project.parent.basedir}/eclipse-java-formatter.xml -->
                             <file>${formatter.config}</file>
                         </eclipse>
                         <removeUnusedImports/>
@@ -157,7 +160,6 @@
                     </java>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
