@@ -7,6 +7,7 @@
     <artifactId>auth</artifactId>
     <name>auth-service</name>
     <version>1.0</version>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>tech.mayanktiwari</groupId>
@@ -14,6 +15,11 @@
         <version>1.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
+
+    <properties>
+        <!-- Override formatter.config to point to parent directory (root of project) -->
+        <formatter.config>${project.parent.basedir}/eclipse-java-formatter.xml</formatter.config>
+    </properties>
 
     <dependencies>
         <!-- Spring Boot starters -->
@@ -36,6 +42,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- JWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.5</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- DB driver -->
@@ -75,5 +94,31 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Internal modules -->
+        <dependency>
+            <groupId>tech.mayanktiwari</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
