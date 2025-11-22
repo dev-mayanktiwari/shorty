@@ -15,4 +15,9 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
+    <properties>
+        <!-- Override formatter.config to point to parent directory (root of project) -->
+        <formatter.config>${project.parent.basedir}/eclipse-java-formatter.xml</formatter.config>
+    </properties>
+
 </project>
