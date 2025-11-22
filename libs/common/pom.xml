@@ -13,5 +13,26 @@
         <version>1.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
+
+    <properties>
+        <!-- Override formatter.config to point to parent directory (root of project) -->
+        <formatter.config>${project.parent.basedir}/eclipse-java-formatter.xml</formatter.config>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+    </dependencies>
     
 </project>
