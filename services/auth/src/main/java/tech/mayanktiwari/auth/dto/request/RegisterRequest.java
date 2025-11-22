@@ -1,4 +1,4 @@
-package tech.mayanktiwari.auth.dto.response;
+package tech.mayanktiwari.auth.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
