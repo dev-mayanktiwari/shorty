@@ -53,7 +53,7 @@ public class JwtUtil {
             Jwts.parser()
                 .verifyWith(getSigningKey())
                 .build()
-                .parseClaimsJws(token);
+                .parseSignedClaims(token);
             return true;
         } catch (JwtException ex) {
             log.error("Invalid JWT signature: {}", ex.getMessage());
