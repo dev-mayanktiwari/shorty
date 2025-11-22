@@ -1,15 +1,21 @@
 package tech.mayanktiwari.common.api;
 
-import lombok.AccessLevel;
+import java.util.List;
+
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 
 @Data
 @Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ApiError {
-    String code;
-    String details;
-    String field;
+    private String code;
+    private String details;
+    private List<FieldErrorDetail> fields;
+
+    @Data
+    @Builder
+    public static class FieldErrorDetail {
+        private String field;
+        private String message;
+    }
 }
