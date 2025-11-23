@@ -21,6 +21,8 @@
         <spring.boot.version>3.5.6</spring.boot.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.30</lombok.version>
+        <flywaydb.version>11.15.0</flywaydb.version>
+        <jackson.databind.version>2.15.2</jackson.databind.version>
 
         <!-- Compiler configuration -->
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -63,6 +65,26 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+
+            <!-- FlywayDB for database migrations -->
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flywaydb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flywaydb.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <!-- Jackson Databind -->
+            <dependency>
+                <groupId>tools.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.databind.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
