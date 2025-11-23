@@ -14,11 +14,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
-
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false, unique = true, updatable = false)
+    private String userId;
 
     @Column(unique = true, nullable = false)
     private String username;
@@ -43,4 +45,12 @@ public class Users {
     @Builder.Default
     @Column(nullable = false, updatable = false)
     private Instant created = Instant.now();
+
+    @PrePersist
+    protected void addUserId() {
+        if (userId == null) {
+            this.userId = java.util.UUID.randomUUID()
+                                        .toString();
+        }
+    }
 }
