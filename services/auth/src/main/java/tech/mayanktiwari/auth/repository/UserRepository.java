@@ -4,16 +4,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import tech.mayanktiwari.auth.models.Users;
+import tech.mayanktiwari.auth.models.User;
 
-public interface UserRepository extends JpaRepository<Users, Integer> {
-    Optional<Users> findByUsername(String username);
+public interface UserRepository extends JpaRepository<User, Integer> {
 
-    Optional<Users> findByEmail(String email);
+    Optional<User> findByEmailOrUsername(String email, String username);
 
-    Optional<Users> findByEmailOrUsername(String email, String username);
-
-    boolean existsByUsername(String username);
-
-    boolean existsByEmail(String email);
 }
