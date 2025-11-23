@@ -6,10 +6,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.experimental.FieldDefaults;
+import tech.mayanktiwari.auth.dto.request.LoginRequest;
 import tech.mayanktiwari.auth.dto.request.RegisterRequest;
+import tech.mayanktiwari.auth.dto.response.JwtResponse;
 import tech.mayanktiwari.auth.dto.response.UserResponseDto;
-import tech.mayanktiwari.auth.mapper.UserMapper;
-import tech.mayanktiwari.auth.models.Users;
+import tech.mayanktiwari.auth.mapper.UserDtoMapper;
+import tech.mayanktiwari.auth.models.User;
 import tech.mayanktiwari.auth.repository.UserRepository;
 import tech.mayanktiwari.auth.security.JwtUtil;
 import tech.mayanktiwari.common.exception.BusinessException;
@@ -30,6 +32,9 @@ public class AuthService {
     @Autowired
     JwtUtil jwtUtil;
 
+    @Autowired
+    UserDtoMapper userDtoMapper;
+
     public UserResponseDto registerUser(RegisterRequest registerRequest) {
 
         userRepository.findByEmailOrUsername(registerRequest.getEmail(), registerRequest.getUsername())
@@ -37,12 +42,23 @@ public class AuthService {
                           throw new BusinessException(ErrorCodes.USER_ALREADY_EXISTS);
                       });
 
-        return UserMapper.toResponseDto(userRepository.save(Users.builder()
-                                                                 .username(registerRequest.getUsername())
-                                                                 .email(registerRequest.getEmail())
-                                                                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                                                                 .name(registerRequest.getName())
-                                                                 .build()));
+        return userDtoMapper.toDto(userRepository.save(User.builder()
+                                                           .username(registerRequest.getUsername())
+                                                           .email(registerRequest.getEmail())
+                                                           .password(passwordEncoder.encode(registerRequest.getPassword()))
+                                                           .name(registerRequest.getName())
+                                                           .build()));
+    }
+
+    public JwtResponse login(LoginRequest loginRequest) {
+        User user = userRepository.findByEmailOrUsername(loginRequest.getIdentifier(), loginRequest.getIdentifier())
+                                  .orElseThrow(() -> new BusinessException(ErrorCodes.USER_NOT_FOUND));
+
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new BusinessException(ErrorCodes.INVALID_CREDENTIALS);
+        }
+
+        return new JwtResponse(jwtUtil.generateToken(user.getUsername()), user.getUsername(), user.getEmail());
     }
 
 }

@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
+import tech.mayanktiwari.auth.dto.request.LoginRequest;
 import tech.mayanktiwari.auth.dto.request.RegisterRequest;
+import tech.mayanktiwari.auth.dto.response.JwtResponse;
 import tech.mayanktiwari.auth.dto.response.UserResponseDto;
 import tech.mayanktiwari.auth.service.AuthService;
 import tech.mayanktiwari.common.api.ApiResponse;
@@ -33,5 +35,17 @@ public class AuthController {
                              .body(ResponseBuilder.success(response, "User registered successfully",
                                                            HttpStatus.CREATED));
 
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<JwtResponse>> loginUser(
+            @RequestBody
+            @Valid
+            LoginRequest loginRequest
+    ) {
+        JwtResponse jwtResponse = authService.login(loginRequest);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(ResponseBuilder.success(jwtResponse, "Login successful", HttpStatus.OK));
     }
 }
