@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import tech.mayanktiwari.auth.models.User;
-import tech.mayanktiwari.auth.repository.UserRepository;
+import tech.mayanktiwari.database.entities.User;
+import tech.mayanktiwari.database.repositories.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

@@ -31,10 +31,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+        <!-- spring-boot-starter-data-jpa is provided by database module -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -63,29 +60,13 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- DB driver -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-
-        <!-- DB migrations -->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-database-postgresql</artifactId>
-        </dependency>
-
         <!-- MapStruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
         </dependency>
 
-        <!-- Lombok -->
+        <!-- Lombok - needed at compile time for service's own DTOs -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -111,6 +92,13 @@
             <artifactId>common</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
+        </dependency>
+
+        <!-- Database module -->
+        <dependency>
+            <groupId>tech.mayanktiwari</groupId>
+            <artifactId>database</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 

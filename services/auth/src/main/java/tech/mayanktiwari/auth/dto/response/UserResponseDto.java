@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 public class UserResponseDto {
     int id;
     String username;
+    String userId;
     String email;
     String name;
 }

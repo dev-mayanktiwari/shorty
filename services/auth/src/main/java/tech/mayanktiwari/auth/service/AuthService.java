@@ -11,11 +11,11 @@ import tech.mayanktiwari.auth.dto.request.RegisterRequest;
 import tech.mayanktiwari.auth.dto.response.JwtResponse;
 import tech.mayanktiwari.auth.dto.response.UserResponseDto;
 import tech.mayanktiwari.auth.mapper.UserDtoMapper;
-import tech.mayanktiwari.auth.models.User;
-import tech.mayanktiwari.auth.repository.UserRepository;
 import tech.mayanktiwari.auth.security.JwtUtil;
 import tech.mayanktiwari.common.exception.BusinessException;
 import tech.mayanktiwari.common.exception.ErrorCodes;
+import tech.mayanktiwari.database.entities.User;
+import tech.mayanktiwari.database.repositories.UserRepository;
 
 @Service
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
